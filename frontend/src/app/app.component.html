@@ -1,0 +1,9 @@
+<app-loading></app-loading>
+<div class="app-container">
+    @if(isLoggedIn){
+        <app-header></app-header>
+    }
+    <div class="main-content" [style.flex]="1">
+        <router-outlet></router-outlet>
+    </div>
+</div>

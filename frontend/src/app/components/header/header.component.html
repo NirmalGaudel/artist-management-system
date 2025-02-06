@@ -1,0 +1,38 @@
+<mat-toolbar class="header" >
+    <!-- Left Section: Menu + Logo + Company Name -->
+    <div class="left-section">
+      <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <img src="logo.png" alt="Company Logo" class="logo" />
+      <span class="company-name">Artist Management System</span>
+    </div>
+  
+    <!-- Center Section: Search Bar (Hidden on Mobile) -->
+    <!-- <div class="search-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput type="text" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div> -->
+  
+    <!-- Right Section: Profile Picture, Name & Logout -->
+    <div class="right-section">
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item> Profile </button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+
+      <div class="profile" [matMenuTriggerFor]="profileMenu">
+        <img src="profile.jpg" alt="User" class="profile-pic" />
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </div>
+  
+      <!-- <button mat-button [matMenuTriggerFor]="profileMenu" class="profile">
+        <img src="profile.jpg" alt="User" class="profile-pic" />
+        <span class="user-name">John Doe</span>
+      </button> -->
+    </div>
+  </mat-toolbar>
+  

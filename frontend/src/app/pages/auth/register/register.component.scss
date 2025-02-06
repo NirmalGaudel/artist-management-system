@@ -1,0 +1,111 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.register-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+  padding: 20px;
+
+  .register-card {
+    .company {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 24px;
+      .logo {
+        width: 48px;
+        aspect-ratio: 1/1;
+        margin-left: 8px;
+        object-fit: cover;
+      }
+
+      .company-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin-left: 12px;
+      }
+    }
+
+    [matSuffix] {
+      opacity: 0.75;
+    }
+    width: 50%;
+    max-width: 90vw;
+    padding: 24px;
+    padding-top: 0px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+
+    mat-card-header {
+      margin-bottom: 16px;
+      justify-content: center;
+    }
+
+    .full-width {
+      width: 100%;
+    }
+
+    .actions {
+      margin-top: 16px;
+    }
+
+    .footer {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 14px;
+      justify-content: center;
+      a {
+        text-decoration: none;
+        color: var(---mat-app-text-color);
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+
+      .login {
+        font-weight: bold;
+        color: var(--mat-badge-background-color);
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.gender-input{
+  max-width: 130px;
+}
+
+// ✅ Mobile Full-Screen Mode
+@media (max-width: 600px) {
+  .register-wrapper {
+    padding: 0;
+    background: none;
+  }
+
+  .register-card {
+    flex: 1;
+    max-width: none !important;
+    width: 100%;
+    min-height: 100%; // Takes the full screen height
+    border-radius: 0; // Removes border-radius for a full-screen effect
+    padding: 40px 20px; // Adjusts padding for better spacing
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gender-input{
+    max-width: none;
+  }
+}
+

@@ -1,0 +1,102 @@
+<div class="register-wrapper">
+    <mat-card class="register-card">
+      <mat-card-header>
+        <mat-card-title>
+            <div class="company">
+                <img src="logo.png" alt="Company Logo" class="logo" />
+                <span class="company-name">Artist Management System</span>
+            </div>
+        </mat-card-title>
+        <mat-card-subtitle>Fill in your details to sign up</mat-card-subtitle>
+      </mat-card-header>
+  
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
+          <div class="row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>First Name</mat-label>
+              <input matInput type="text" formControlName="first_name" />
+              <mat-error *ngIf="registrationForm.controls['first_name'].invalid">
+                <small *ngIf="registrationForm.controls['first_name'].hasError('required')">Required</small>
+                <small *ngIf="registrationForm.controls['first_name'].hasError('minlength')">Min 3 chars</small>
+              </mat-error>
+            </mat-form-field>
+      
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Last Name</mat-label>
+              <input matInput type="text" formControlName="last_name" />
+              <mat-error *ngIf="registrationForm.controls['last_name'].invalid">
+                <small *ngIf="registrationForm.controls['last_name'].hasError('required')">Required</small>
+                <small *ngIf="registrationForm.controls['last_name'].hasError('minlength')">Min 3 chars</small>
+              </mat-error>
+            </mat-form-field>
+      
+            <mat-form-field appearance="outline" class="gender-input">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender">
+                <mat-option value="male">Male</mat-option>
+                <mat-option value="female">Female</mat-option>
+                <mat-option value="other">Other</mat-option>
+              </mat-select>
+              <mat-error *ngIf="registrationForm.controls['gender'].invalid">Required</mat-error>
+            </mat-form-field>
+          </div>
+      
+          <div class="row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email" />
+              <mat-error *ngIf="registrationForm.controls['email'].invalid">
+                <small *ngIf="registrationForm.controls['email'].hasError('required')">Required</small>
+                <small *ngIf="registrationForm.controls['email'].hasError('email')">Invalid Email</small>
+              </mat-error>
+            </mat-form-field>
+      
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Phone</mat-label>
+              <input matInput type="text" formControlName="phone" />
+              <mat-error *ngIf="registrationForm.controls['phone'].invalid">
+                <small *ngIf="registrationForm.controls['phone'].hasError('required')">Required</small>
+                <small *ngIf="registrationForm.controls['phone'].hasError('pattern')">Invalid Phone</small>
+              </mat-error>
+            </mat-form-field>
+          </div>
+      
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="address"></textarea>
+            <mat-error *ngIf="registrationForm.controls['address'].invalid">Required</mat-error>
+          </mat-form-field>
+      
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" />
+            <mat-error *ngIf="registrationForm.controls['password'].invalid">
+              <small *ngIf="registrationForm.controls['password'].hasError('required')">Required</small>
+              <small *ngIf="registrationForm.controls['password'].hasError('minlength')">Min 6 chars</small>
+            </mat-error>
+          </mat-form-field>
+      
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" formControlName="confirmPassword" />
+            <mat-error *ngIf="registrationForm.controls['confirmPassword'].invalid">
+              <small *ngIf="registrationForm.controls['confirmPassword'].hasError('required')">Required</small>
+              <small *ngIf="registrationForm.controls['confirmPassword'].hasError('mustMatch')">Password must match</small>
+            </mat-error>
+          </mat-form-field>
+  
+          <div class="actions">
+            <button mat-raised-button color="primary" type="submit" class="full-width">
+              Register
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+  
+      <mat-card-actions class="footer">
+        <a routerLink="/auth/login">Already have an account? <span class="login">Sign in</span></a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
