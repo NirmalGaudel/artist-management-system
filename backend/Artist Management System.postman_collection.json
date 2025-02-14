@@ -1,0 +1,356 @@
+{
+	"info": {
+		"_postman_id": "b5f36e29-7f95-45ec-8ac3-077a6db42ef3",
+		"name": "Artist Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "9897861"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"John\",\r\n    \"last_name\": \"Doe\",\r\n    \"email\": \"johndoe123@example.com\",\r\n    \"password\": \"password123\",\r\n    \"phone\": \"+1234567890\",\r\n    \"gender\": \"M\",\r\n    \"address\": \"123 Main St, Springfield, IL\",\r\n    \"role\": \"super_admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"johndoe@example.com\",\r\n    \"password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/auth/login"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/users/7"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Alice\",\r\n    \"last_name\": \"Johnson\",\r\n    \"email\": \"alicejohnson@example.com\",\r\n    \"password\": \"password123\",\r\n    \"phone\": \"+1122334455\",\r\n    \"gender\": \"F\",\r\n    \"address\": \"789 Pine St, Springfield, IL\",\r\n    \"role\": \"artist\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Nirmal1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/users/7"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/api/users/6"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/users/profile"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artists",
+			"item": [
+				{
+					"name": "Get Artists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/artists",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"artists"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "id,name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/artists/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Artist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sita Doe\",\r\n    \"dob\": \"1995-02-05T16:49:10.000Z\",\r\n    \"gender\": \"f\",\r\n    \"address\": \"kathmandu nepal\",\r\n    \"first_release_year\": 2012,\r\n    \"no_of_albums_released\": 28\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/artists"
+					},
+					"response": []
+				},
+				{
+					"name": "Update artist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Nepali Nerd 3\",\r\n    \"address\": \"Bhaktapur nepal 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/artists/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Artist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/api/artists/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Export Artists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/artists/export"
+					},
+					"response": []
+				},
+				{
+					"name": "Import Artists",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "c:\\Users\\Gaudel\\Desktop\\data.csv"
+								}
+							]
+						},
+						"url": "{{base_url}}/api/artists/import"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Music",
+			"item": [
+				{
+					"name": "Get Musics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/music?artist_id=103683",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"music"
+							],
+							"query": [
+								{
+									"key": "artist_id",
+									"value": "103683"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Music",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/music/12"
+					},
+					"response": []
+				},
+				{
+					"name": "Create music",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"artist_id\": 103683,\r\n    \"title\": \"music 1\",\r\n    \"genre\": \"rock\",\r\n    \"album_name\": \"Album 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/music"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Music",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Updated music title\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/music/12"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Music",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{base_url}}/api/music/10"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{token}}"
+		}
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
