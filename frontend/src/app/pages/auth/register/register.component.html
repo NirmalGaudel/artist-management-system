@@ -34,9 +34,9 @@
             <mat-form-field appearance="outline" class="gender-input">
               <mat-label>Gender</mat-label>
               <mat-select formControlName="gender">
-                <mat-option value="male">Male</mat-option>
-                <mat-option value="female">Female</mat-option>
-                <mat-option value="other">Other</mat-option>
+                <mat-option value="m">Male</mat-option>
+                <mat-option value="f">Female</mat-option>
+                <mat-option value="o">Other</mat-option>
               </mat-select>
               <mat-error *ngIf="registrationForm.controls['gender'].invalid">Required</mat-error>
             </mat-form-field>

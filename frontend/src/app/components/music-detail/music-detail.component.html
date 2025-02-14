@@ -1,0 +1,67 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{data.title ? (data.title) : 'Add new music' }}</mat-card-title>
+        @if (data.id || data.artist_name) {
+        <mat-card-subtitle>
+            @if (data.id) {
+                <span>Music id: {{data.id}}</span>
+            }
+            @if (data.id || data.artist_name) {
+                <span>, </span>
+            }
+            @if(data.artist_name){
+                <span>Artist name: {{data.artist_name}}</span>
+            }
+        </mat-card-subtitle>
+        }
+        <div class="action-buttons">
+            @if (!data.readonly) {
+                <button mat-stroked-button color="primary" [disabled]="musicForm.invalid || musicForm.pristine"
+                    (click)="onSubmit()"><mat-icon class="material-icons-outlined">save</mat-icon> 
+                    <span class="button-label"> Save</span>
+                </button>
+            }
+
+            <button mat-stroked-button color="warn" matTooltip="Delete" (click)="deleteMusic()">
+                <mat-icon class="material-icons-outlined">delete</mat-icon> <span class="button-label"> Delete</span>
+            </button>
+
+            <button mat-stroked-button matTooltip="Close" mat-dialog-close>
+                <mat-icon>close</mat-icon> 
+                <span class="button-label"> Close</span> 
+            </button>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="musicForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Title</mat-label>
+                    <input matInput formControlName="title">
+                    <mat-error *ngIf="musicForm.controls['title'].hasError('required')">
+                        Title is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Album Name</mat-label>
+                    <input matInput formControlName="album_name">
+                    <mat-error *ngIf="musicForm.controls['album_name'].invalid">Required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="min-width">
+                    <mat-label>Genre</mat-label>
+                    <mat-select formControlName="genre">
+                        @for (opt of genres; track $index) {
+                            <mat-option [value]="opt.value">{{opt.label}}</mat-option>
+                        }
+                    </mat-select>
+                    <mat-error *ngIf="musicForm.controls['genre'].hasError('required')">
+                        Genre is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

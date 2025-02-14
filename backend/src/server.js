@@ -8,8 +8,11 @@ dotenv.config();
 
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const artistRoutes = require('./routes/artistRoutes');
+const musicRoutes = require('./routes/musicRoutes');
 
 const { requestLogger } = require('./middlewares/requestLogger');
+const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 app.use(requestLogger);
@@ -18,6 +21,10 @@ app.use(bodyParser.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/artists', artistRoutes);
+app.use('/api/music', musicRoutes);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

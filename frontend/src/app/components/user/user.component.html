@@ -1,0 +1,111 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{data.id ? (data.first_name + ' ' + data.last_name) : 'Add new user' }}</mat-card-title>
+        @if (data.id) {
+        <mat-card-subtitle>User id: {{data.id}}</mat-card-subtitle>
+        }
+        <div class="action-buttons">
+            @if (!data.readonly) {
+                <button mat-stroked-button color="primary" [disabled]="userForm.invalid || userForm.pristine" (click)="onSubmit()"><mat-icon class="material-icons-outlined">save</mat-icon> <span class="button-label"> Save</span> </button>
+            }
+            @if (data.id && data.id != authService.userId) {
+            <button mat-stroked-button color="warn" matTooltip="Delete"
+                (click)="deleteUser()"><mat-icon class="material-icons-outlined">delete</mat-icon> <span class="button-label"> Delete</span> </button>
+            }
+            <button mat-stroked-button matTooltip="Close" mat-dialog-close><mat-icon>close</mat-icon> <span class="button-label"> Close</span> </button>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>First name</mat-label>
+                    <input matInput formControlName="first_name">
+                    <mat-error *ngIf="userForm.controls['first_name'].hasError('required')">
+                        First name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Last name</mat-label>
+                    <input matInput formControlName="last_name">
+                    <mat-error *ngIf="userForm.controls['last_name'].hasError('required')">
+                        Last name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="min-width">
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender">
+                        <mat-option value="m">Male</mat-option>
+                        <mat-option value="f">Female</mat-option>
+                        <mat-option value="o">Other</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userForm.controls['gender'].hasError('required')">
+                        Gender is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-error *ngIf="userForm.controls['email'].hasError('required')">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="userForm.controls['email'].hasError('email')">
+                        Enter a valid email
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Phone</mat-label>
+                    <input matInput formControlName="phone">
+                    <mat-error *ngIf="userForm.controls['phone'].hasError('required')">
+                        Phone is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="min-width">
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option value="super_admin">Super Admin</mat-option>
+                        <mat-option value="artist_manager">Artist Manager</mat-option>
+                        <mat-option value="artist">Artist</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userForm.controls['role'].hasError('required')">
+                        Role is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput formControlName="address"></textarea>
+                    <mat-error *ngIf="userForm.controls['address'].invalid">Required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="password">
+                    <mat-error *ngIf="userForm.controls['password'].hasError('required')">
+                        Password is required
+                    </mat-error>
+                    <mat-error *ngIf="userForm.controls['password'].hasError('minlength')">
+                        Password must be at least 6 characters long
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput type="password" formControlName="confirmPassword">
+                    <mat-error *ngIf="userForm.controls['confirmPassword'].hasError('required')">
+                        Confirm Password is required
+                    </mat-error>
+                    <mat-error *ngIf="userForm.controls['confirmPassword'].hasError('mustMatch')">
+                        Password does not match
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -15,6 +15,7 @@
 .left-section {
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   .logo {
     width: 48px;
@@ -41,6 +42,9 @@
 }
 
 .right-section {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
   .profile {
     padding-inline: 0.5rem;
     cursor: pointer;
@@ -61,6 +65,12 @@
       font-weight: bold;
     }
   }
+}
+
+.active{
+  display: none;
+  color: var(--mat-badge-background-color);
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {

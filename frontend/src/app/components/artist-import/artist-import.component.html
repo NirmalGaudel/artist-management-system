@@ -1,0 +1,17 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Import Artist data
+        </mat-card-title>
+        <mat-card-subtitle>
+            Please provide the import file
+        </mat-card-subtitle>
+
+        <button mat-stroked-button color="primary" [disabled]="!selectedFile?.name" (click)="onSubmit()"><mat-icon class="material-icons-outlined">file_download</mat-icon> Import</button>
+    </mat-card-header>
+    <mat-card-content>
+        <button type="button" mat-raised-button (click)="fileInput.click()" >Choose File</button>
+        <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept=".csv">
+        <span class="file-name">{{selectedFile?.name || "Please choose a file"}}</span>
+    </mat-card-content>
+</mat-card>

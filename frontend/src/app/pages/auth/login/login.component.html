@@ -15,13 +15,15 @@
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email" type="email" required />
-                    <mat-icon matSuffix color="primary">email</mat-icon>
+                    <mat-icon matSuffix color="primary" class="material-icons-outlined">email</mat-icon>
+                    <mat-error>Email cannot be empty</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Password</mat-label>
-                    <input matInput formControlName="password" type="password" required />
-                    <mat-icon matSuffix color="primary">lock</mat-icon>
+                    <input matInput formControlName="password" [type]="passwordVisibility ? 'text': 'password'" required />
+                    <mat-icon matSuffix color="primary" id="visibility-toggle" class="material-icons-outlined" (click)="passwordVisibility = !passwordVisibility">{{passwordVisibility ? 'visibility_off': 'visibility'}}</mat-icon>
+                    <mat-error>Password cannot be empty</mat-error>
                 </mat-form-field>
 
                 <div class="actions">

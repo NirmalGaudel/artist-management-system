@@ -9,7 +9,7 @@ exports.register = (req, res) => {
     bcrypt.hash(password, 10, (err, hashedPassword) => {
         if (err) {
             logger.error('Error hashing password');
-            return res.status(500).json({ error: 'Error hashing password' });
+            return res.status(500).json({ message: 'Error hashing password' });
         }
 
         const newUser = { first_name, last_name, email, password: hashedPassword, phone, gender, address, role: "super_admin" };
@@ -18,7 +18,7 @@ exports.register = (req, res) => {
             if (error) {
                 logger.error(`Database error while creating user: ${error.message}`);
                 delete error.sqlMessage;
-                return res.status(500).json({ error: 'Database error', details: error });
+                return res.status(500).json({ message: error.message, details: error });
             }
             logger.info(`User registered successfully: ${email}`);
             res.status(201).json({ message: 'User created successfully', userId: results.insertId });
@@ -32,7 +32,7 @@ exports.login = (req, res) => {
     userModel.getUserByEmail(email, (error, results) => {
         if (error || results.length === 0) {
             logger.warn(`Failed login attempt: ${email}`);
-            return res.status(401).json({ error: 'Invalid email or password' });
+            return res.status(401).json({ message: 'Invalid email or password' });
         }
 
         const user = results[0];
@@ -40,10 +40,10 @@ exports.login = (req, res) => {
             delete user.password;
             if (!isMatch) {
                 logger.warn(`Invalid password attempt for user: ${email}`);
-                return res.status(401).json({ error: 'Invalid email or password' });
+                return res.status(401).json({ message: 'Invalid email or password' });
             }
 
-            const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE || '1h' });
             logger.info(`User logged in: ${email}`);
             res.json({ message: 'Login successful', token, user });
         });

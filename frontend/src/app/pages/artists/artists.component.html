@@ -1,0 +1,71 @@
+<mat-card class="artists-card">
+    <mat-card-header>
+        <mat-card-title>Artists</mat-card-title>
+        <mat-card-subtitle>View and manage album artists</mat-card-subtitle>
+        <div class="action-buttons">
+            <button mat-stroked-button color="primary" (click)="importArtists()"><mat-icon class="material-icons-outlined">file_download</mat-icon>Import</button>
+            <button mat-stroked-button color="primary" (click)="exportArtists()"><mat-icon class="material-icons-outlined">file_upload</mat-icon>Export</button>
+            <button mat-stroked-button color="primary" (click)="showDetail(null)"><mat-icon class="material-icons-outlined">add</mat-icon>Add artist</button>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="getData()">
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%;"> ID </th>
+                    <td mat-cell *matCellDef="let artist" style="width: 10%;"> {{artist.id}} </td>
+                </ng-container>
+            
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header > Name </th>
+                    <td mat-cell *matCellDef="let artist"> {{artist.name}} </td>
+                </ng-container>
+            
+                <!-- Gender Column -->
+                <ng-container matColumnDef="gender">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%;"> Gender </th>
+                    <td mat-cell *matCellDef="let artist" style="width: 15%;"> {{getGenderLabel(artist.gender)}} </td>
+                </ng-container>
+
+                <!-- Release Year Column -->
+                <ng-container matColumnDef="first_release_year">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%;"> Release year </th>
+                    <td mat-cell *matCellDef="let artist" style="width: 15%;"> {{artist.first_release_year }} </td>
+                </ng-container>
+
+                <!-- Released Albums Column -->
+                <ng-container matColumnDef="no_of_albums_released">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 10%;"> Released Albums </th>
+                    <td mat-cell *matCellDef="let artist" style="width: 15%;"> {{artist.no_of_albums_released}} </td>
+                </ng-container>
+
+                <!-- Actions Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef style="width: 20%;"> </th>
+                    <td mat-cell *matCellDef="let artist" style="width: 20%;">
+                        <button matTooltip="Music" mat-icon-button color="primary" (click)="showMusic(artist)">
+                            <mat-icon class="material-icons-outlined">music_note</mat-icon>
+                        </button>
+                        
+                        <button matTooltip="Edit" mat-icon-button color="primary" (click)="showDetail(artist)">
+                            <mat-icon class="material-icons-outlined">edit</mat-icon>
+                        </button>
+                        
+                        <button matTooltip="Delete" mat-icon-button color="warn" (click)="deleteArtist(artist)">
+                            <mat-icon class="material-icons-outlined">delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </mat-card-content>
+    <mat-card-footer>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons [length]="pageLength" (page)="getData()"></mat-paginator>
+    </mat-card-footer>
+</mat-card>

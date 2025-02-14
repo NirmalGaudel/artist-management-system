@@ -7,21 +7,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ToastService {
   constructor(private snackBar: MatSnackBar) {}
 
-  success(message: string, duration: number = 2000) {
+  success(message: string, duration: number = 3000) {
     this.snackBar.open(message, 'Ok', {
       duration,
       panelClass: 'toast-success',
       verticalPosition: 'top',
-      horizontalPosition: 'right'
+      horizontalPosition: 'center'
     });
   }
 
-  error(message: string, duration: number = 2000) {
+  error(message: string, duration: number = 3000) {
     this.snackBar.open(message, 'Ok', {
       duration,
       panelClass: 'toast-error',
       verticalPosition: 'top',
-      horizontalPosition: 'right',
+      horizontalPosition: 'center',
       politeness: 'assertive'
     });
   }

@@ -21,6 +21,7 @@ import { globalModules, materialModules } from '../../../gobalModules';
 export class LoginComponent {
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
   loginForm: FormGroup = new FormGroup({});
+  passwordVisibility = false;
   ngOnInit() {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
@@ -37,9 +38,6 @@ export class LoginComponent {
     // Call the login method from the AuthService
     this.authService.login(this.loginForm?.value).subscribe({
       next: (response) => {
-        // Store the token in local storage
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('user', JSON.stringify(response.user));
         this.router.navigate(['/home']);
       },
       error: (error) => {

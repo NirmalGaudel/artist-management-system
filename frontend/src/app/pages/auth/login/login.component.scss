@@ -86,6 +86,10 @@
   }
 }
 
+#visibility-toggle{
+  cursor: pointer;
+}
+
 // ✅ Full-Screen Mode for Mobile Devices
 @media (max-width: 600px) {
   .login-wrapper {

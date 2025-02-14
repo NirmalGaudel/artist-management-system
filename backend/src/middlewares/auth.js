@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { getUserById } = require("../models/userModel");
 
 const authenticate = (req, res, next) => {
   const token = req.header("Authorization");
@@ -6,8 +7,11 @@ const authenticate = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
+    getUserById(decoded.id, (err, res) => {
+      if(err || !res.length) throw new Error(err);
+      req.user = res[0];
+      next();
+    })
   } catch (err) {
     res.status(400).json({ message: "Invalid token" });
   }

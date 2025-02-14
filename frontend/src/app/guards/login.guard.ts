@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { CanActivate, CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ToastService } from '../services/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,18 +10,15 @@ import { AuthService } from '../services/auth.service';
 export class LoginGuard implements CanActivate {
   private router = inject(Router);
   private authService = inject(AuthService);
+  private toastService = inject(ToastService);
 
   canActivate(): boolean {
-    const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-    if (token && user.id) {
+    if (this.authService.authToken && this.authService.userId) {
       this.router.navigate(['/home']);
       return false;
     }
-    if(!token !== !user ) {
-      this.authService.logout();
-    }
+
     return true;
   }
 }

@@ -1,0 +1,82 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{data.id ? (data.first_name + ' ' + data.last_name) : 'Add new artist' }}</mat-card-title>
+        @if (data.id) {
+        <mat-card-subtitle>Artist id: {{data.id}}</mat-card-subtitle>
+        }
+        <div class="action-buttons">
+            @if (!data.readonly) {
+                <button mat-stroked-button color="primary" [disabled]="artistForm.invalid || artistForm.pristine" (click)="onSubmit()"><mat-icon class="material-icons-outlined">save</mat-icon> <span class="button-label"> Save</span> </button>
+            }
+            @if (data.id && data.id != authService.userId) {
+            <button mat-stroked-button color="warn" matTooltip="Delete"
+                (click)="deleteArtist()"><mat-icon class="material-icons-outlined">delete</mat-icon> <span class="button-label"> Delete</span> </button>
+            }
+            <button mat-stroked-button matTooltip="Close" mat-dialog-close><mat-icon>close</mat-icon> <span class="button-label"> Close</span> </button>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="artistForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+               
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name">
+                    <mat-error *ngIf="artistForm.controls['name'].hasError('required')">
+                        Name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dob">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="artistForm.controls['dob'].hasError('required')">
+                        Date of Birth is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="min-width">
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender">
+                        <mat-option value="m">Male</mat-option>
+                        <mat-option value="f">Female</mat-option>
+                        <mat-option value="o">Other</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="artistForm.controls['gender'].hasError('required')">
+                        Gender is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput formControlName="address"></textarea>
+                    <mat-error *ngIf="artistForm.controls['address'].invalid">Required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Release Year</mat-label>
+                    <input matInput formControlName="first_release_year" type="number">
+                    <mat-error *ngIf="artistForm.controls['first_release_year'].hasError('required')">
+                        Release Year is required
+                    </mat-error>
+                    <mat-error *ngIf="artistForm.controls['first_release_year'].hasError('min')">
+                        Release Year must be after 1900
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Released Albums</mat-label>
+                    <input matInput formControlName="no_of_albums_released" type="number">
+                    <mat-error *ngIf="artistForm.controls['no_of_albums_released'].hasError('required')">
+                        Released Albums is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

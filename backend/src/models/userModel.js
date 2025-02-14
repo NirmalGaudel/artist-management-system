@@ -8,8 +8,8 @@ exports.createUser = (user, callback) => {
 };
 
 // Get users with pagination and total count
-exports.getUsersWithPagination = (limit, offset, callback) => {
-    const sql = `SELECT SQL_CALC_FOUND_ROWS id, first_name, last_name, email, phone, gender, address, role FROM user LIMIT ? OFFSET ?`;
+exports.getUsersWithPagination = (limit, offset, sort, callback) => {
+    const sql = `SELECT SQL_CALC_FOUND_ROWS id, CONCAT(first_name, ' ', last_name) AS name, email, phone, gender, address, role, created_at FROM user ORDER BY ${sort} LIMIT ? OFFSET ?`;
     db.query(sql, [parseInt(limit), parseInt(offset)], (err, results) => {
         if (err) return callback(err);
         db.query('SELECT FOUND_ROWS() as total', (err, countResults) => {
@@ -34,6 +34,7 @@ exports.getUserByEmail = (email, callback) => {
 // Update user
 exports.updateUser = (id, user, callback) => {
     let sql = 'UPDATE user SET ';
+    // user.updated_at = "NOW()"
     const values = [];
     for (const [key, value] of Object.entries(user)) {
         if(!value) continue;
@@ -43,6 +44,7 @@ exports.updateUser = (id, user, callback) => {
     sql = sql.slice(0, -2); // Remove the last comma and space
     sql += ' WHERE id = ?';
     values.push(id);
+    console.log(sql, values);
     db.query(sql, values, callback);
 };
 

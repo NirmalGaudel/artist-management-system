@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export const globalModules = [
   CommonModule,
@@ -27,5 +28,6 @@ export const materialModules = [
   MatIconModule,
   MatOptionModule,
   MatToolbarModule,
-  MatMenuModule
+  MatMenuModule,
+  MatTooltipModule
 ];
