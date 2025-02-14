@@ -5,6 +5,7 @@ import { LoadingService } from './loading.service';
 import { Router } from '@angular/router';
 import { AlertComponent } from '../components/alert/alert.component';
 import { MatDialog } from '@angular/material/dialog';
+import { APP_CONFIG } from '../../environments/app-config.token';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,9 @@ export class AuthService {
   private dialog = inject(MatDialog);
   private user = JSON.parse(localStorage.getItem('user') || 'null');
   private token = localStorage.getItem('token') || null;
+  private readonly appConfig = inject(APP_CONFIG);
 
-  public readonly api_url = 'http://localhost:8080/api';
+  public readonly api_url = this.appConfig.api_url;
 
   login(credentials: { email: string; password: string }): Observable<any> {
     this.loadingService.show();
